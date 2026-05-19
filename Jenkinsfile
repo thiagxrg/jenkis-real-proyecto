@@ -66,7 +66,7 @@ pipeline {
             -d text="✅ Pipeline SUCCESS"
             """
              emailext (
-            to: "tuemail@gmail.com",
+            to: "thiagorojascole99@gmail.com",
             subject: "✅ SUCCESS Jenkins",
             body: "Pipeline terminado correctamente 🚀"
         )
