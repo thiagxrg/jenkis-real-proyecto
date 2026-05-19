@@ -65,6 +65,11 @@ pipeline {
             -d chat_id=$TELEGRAM_CHAT \
             -d text="✅ Pipeline SUCCESS"
             """
+             emailext (
+            to: "tuemail@gmail.com",
+            subject: "✅ SUCCESS Jenkins",
+            body: "Pipeline terminado correctamente 🚀"
+        )
         }
 
         failure {
