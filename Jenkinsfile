@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+    environment {
+        DISCORD_WEBHOOK = 'https://discord.com/api/webhooks/TU_WEBHOOK'
+    }
+
     stages {
 
         stage('Clonar repositorio') {
@@ -45,15 +49,30 @@ pipeline {
     post {
 
         success {
-            echo 'Pipeline SUCCESS'
+            sh """
+            curl -H "Content-Type: application/json" \
+            -X POST \
+            -d '{"content":"✅ Pipeline SUCCESS"}' \
+            $DISCORD_WEBHOOK
+            """
         }
 
         failure {
-            echo 'Pipeline FAILED'
+            sh """
+            curl -H "Content-Type: application/json" \
+            -X POST \
+            -d '{"content":"❌ Pipeline FAILED"}' \
+            $DISCORD_WEBHOOK
+            """
         }
 
         unstable {
-            echo 'Pipeline UNSTABLE'
+            sh """
+            curl -H "Content-Type: application/json" \
+            -X POST \
+            -d '{"content":"⚠️ Pipeline UNSTABLE"}' \
+            $DISCORD_WEBHOOK
+            """
         }
     }
 }
