@@ -1,34 +1,59 @@
 pipeline {
-    agent {
-        docker {
-            image 'node:18'
-        }
-    }
+    agent any
 
     stages {
 
-        stage('Frontend Install') {
+        stage('Clonar repositorio') {
             steps {
-                dir('frontend') {
+                git branch: 'main',
+                    url: 'https://github.com/thiagxrg/jenkis-real-proyecto.git'
+            }
+        }
+
+        stage('Verificar Node') {
+            steps {
+                sh 'node -v'
+                sh 'npm -v'
+            }
+        }
+
+        stage('Instalar dependencias Backend') {
+            steps {
+                dir('src/backend') {
                     sh 'npm install'
                 }
             }
         }
 
-        stage('Frontend Build') {
+        stage('Instalar dependencias Frontend') {
             steps {
-                dir('frontend') {
+                dir('src/frontend') {
+                    sh 'npm install'
+                }
+            }
+        }
+
+        stage('Build Frontend') {
+            steps {
+                dir('src/frontend') {
                     sh 'npm run build'
                 }
             }
         }
+    }
 
-        stage('Backend Install') {
-            steps {
-                dir('backend') {
-                    sh 'npm install'
-                }
-            }
+    post {
+
+        success {
+            echo 'Pipeline SUCCESS'
+        }
+
+        failure {
+            echo 'Pipeline FAILED'
+        }
+
+        unstable {
+            echo 'Pipeline UNSTABLE'
         }
     }
 }
