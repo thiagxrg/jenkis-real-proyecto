@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        DISCORD_WEBHOOK = 'https://discord.com/api/webhooks/TU_WEBHOOK'
+        DISCORD_WEBHOOK = 'https://discord.com/api/webhooks/1506381725335421141/6vZ0c_7Xmex2SoNvLPcvgrVg2-4gW8paUdi3AEE6XZNNHWq_xc4C_80B-d5SuMEpGmPP'
     }
 
     stages {
